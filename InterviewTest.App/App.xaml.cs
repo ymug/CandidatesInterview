@@ -6,9 +6,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using InterviewTest.App.Models;
 using InterviewTest.App.RemoteWorkerSimulator_DO_NOT_TOUCH;
 using InterviewTest.App.Services;
+using InterviewTest.App.ViewModels;
+using InterviewTest.App.Views;
 using Microsoft.Extensions.DependencyInjection;
+using ProductForm = InterviewTest.App.ViewModels.ProductForm;
 
 namespace InterviewTest.App
 {
@@ -55,8 +59,10 @@ namespace InterviewTest.App
 
             services.AddSingleton<IProductStore, ProductStore>();
 
-
             services.AddSingleton<MainWindow>();
+
+            services.AddSingleton<ProductForm>();
+            services.AddSingleton<ProductListViewModel>();
 
             return services.BuildServiceProvider();
         }
