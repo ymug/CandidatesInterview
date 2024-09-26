@@ -19,14 +19,16 @@ namespace InterviewTest.App.ViewModels;
 public partial class ProductListViewModel : ObservableObject
 {
     private readonly IProductStore _productStore;
+    private readonly IProductAvailabilityChecker _productAvailabilityChecker;
     private readonly List<IProduct> _products = new List<IProduct>();
 
     [ObservableProperty]
     private bool _isLoading;
 
-    public ProductListViewModel(IProductStore productStore)
+    public ProductListViewModel(IProductStore productStore, IProductAvailabilityChecker productAvailabilityChecker)
     {
         _productStore = productStore;
+        _productAvailabilityChecker = productAvailabilityChecker;
         _products.AddRange(_productStore.GetProducts());
 
         _productStore.ProductAdded += HandleProductAdded;
@@ -40,28 +42,28 @@ public partial class ProductListViewModel : ObservableObject
     [RelayCommand]
     public void CheckProductAvailabilities()
     {
-        List<ProductAvailabilityChecker> checkers = new List<ProductAvailabilityChecker>();
-        List<Thread> t = new List<Thread>();
-        foreach (IProduct p in _products)
+        Task.Run(async () =>
         {
-            ProductAvailabilityChecker productAvailabilityChecker = new ProductAvailabilityChecker(p);
-            checkers.Add(productAvailabilityChecker);
-            Thread thread = new Thread(productAvailabilityChecker.CheckIfAvailable);
-            t.Add(thread);
-            thread.Start();
-        }
-        foreach (Thread thread in t)
-        {
-            thread.Join();
-        }
 
-        StringBuilder sb = new StringBuilder();
-        bool anyError = false;
+            var products = _products.ToArray();
 
-        var availabilities = checkers.Select(c => new ProductAvailability(c.Product, c.Result)).ToArray();
+            var tasks = new Task<ProductAvailability>[products.Length];
+            for (var i = 0; i < products.Length; i++)
+            {
+                tasks[i] = _productAvailabilityChecker.IsProductAvailableAsync(products[i]);
+            }
 
 
-        WeakReferenceMessenger.Default.Send(new ProductAvailabilitiesMessage(availabilities));
+            await Task.WhenAll(tasks);
+
+
+            var availabilities = tasks.Select(t => t).Select(c => c.Result).ToArray();
+
+
+            WeakReferenceMessenger.Default.Send(new ProductAvailabilitiesMessage(availabilities));
+
+        });
+
     }
 
 

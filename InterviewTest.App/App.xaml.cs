@@ -58,6 +58,7 @@ namespace InterviewTest.App
             var services = new ServiceCollection();
 
             services.AddSingleton<IProductStore, ProductStore>();
+            services.AddSingleton<IProductAvailabilityChecker, ProductAvailabilityChecker>();
 
             services.AddSingleton<MainWindow>();
 

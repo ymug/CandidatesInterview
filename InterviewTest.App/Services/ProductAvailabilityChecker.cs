@@ -8,20 +8,14 @@ using InterviewTest.App.Models;
 
 namespace InterviewTest.App.Services
 {
-    public class ProductAvailabilityChecker
+    public class ProductAvailabilityChecker : IProductAvailabilityChecker
     {
-        public IProduct Product { get; }
+        private static readonly Random Random = new Random();
 
-        public ProductAvailabilityChecker(IProduct product)
+        public async Task<ProductAvailability> IsProductAvailableAsync(IProduct product)
         {
-            Product = product;
+            await Task.Delay(5000);
+            return new ProductAvailability(product, Random.Next(0, 2) == 0);
         }
-
-        public void CheckIfAvailable()
-        {
-            Thread.Sleep(5000);//Let us to check 
-            Result = true;
-        }
-        public bool Result { get; private set; }
     }
 }
