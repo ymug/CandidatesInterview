@@ -12,6 +12,30 @@
         >
     <Window.Resources>
         <converters:HealthIndexColorConverter x:Key="HealthIndexColorConverter" />
+        <Style TargetType="TextBox">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="10,0,10,0"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="Height" Value="23"></Setter>
+
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="10,0,10,0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="Width" Value="100"></Setter>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="10,0,10,0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="Height" Value="23"></Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -53,38 +77,38 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <StackPanel Grid.Row="1">
+            <Button Command="{Binding CheckProductAvailabilitiesCommand }">Check store availability</Button>
+        </StackPanel>
         <Grid Grid.Column="1" Grid.RowSpan="2"
-              
-              DataContext="{Binding ProductForm, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type views:MainWindow}} }"
-              
-              >
+              DataContext="{Binding ProductForm, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type views:MainWindow}} }">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="124*" />
-                <ColumnDefinition Width="135*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="45*" />
-                <RowDefinition Height="34*" />
-                <RowDefinition Height="46*" />
-                <RowDefinition Height="57*" />
-                <RowDefinition Height="138*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Content="Add something to the list:" HorizontalAlignment="Left" Margin="10,10,0,0"
-                   VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" />
-            <Label Content="Type" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Top" />
-            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"
-                      Width="120"
+
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Add something to the list:" FontWeight="Bold" />
+
+            <Label Grid.Column="0" Grid.Row="1" Content="Type" />
+            <ComboBox Grid.Column="1" Grid.Row="1"
                       ItemsSource="{Binding ProductTypes}"
                       SelectedItem="{Binding ProductType, Mode=TwoWay}">
             </ComboBox>
-            <Label Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" />
-            <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,10,0,0"
-                     Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+
+            <Label Grid.Column="0" Grid.Row="2" Content="Name" />
+            <TextBox Grid.Column="1" Grid.Row="2"
                      Text="{Binding Name, Mode=TwoWay}" />
-            <Label Content="Quantity" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3"
-                   VerticalAlignment="Top" />
-            <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,13,0,0"
-                     Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+
+            <Label Grid.Column="0" Grid.Row="3" Content="Quantity"/>
+            <TextBox Grid.Column="1" Grid.Row="3"
                      Text="{Binding Quantity, Mode=TwoWay}">
                 <behaviours:Interaction.Triggers>
                     <behaviours:EventTrigger EventName="PreviewTextInput">
@@ -92,10 +116,9 @@
                     </behaviours:EventTrigger>
                 </behaviours:Interaction.Triggers>
             </TextBox>
-            <Label Content="Unit Price" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4"
-                   VerticalAlignment="Top" />
-            <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,13,0,0"
-                     Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+
+            <Label Grid.Column="0" Grid.Row="4" Content="Unit Price"/>
+            <TextBox Grid.Column="1" Grid.Row="4"
                      Text="{Binding UnitPrice, Mode=TwoWay}" >
                 <behaviours:Interaction.Triggers>
                     <behaviours:EventTrigger EventName="PreviewTextInput">
@@ -103,14 +126,13 @@
                     </behaviours:EventTrigger>
                 </behaviours:Interaction.Triggers>
             </TextBox>
-            <Button Content="Add" Grid.Column="1" HorizontalAlignment="Left" Margin="34,106,0,0"
-                    Grid.Row="4" VerticalAlignment="Top" Width="75"
+
+            <Button Grid.Column="1" Grid.Row="5" Content="Add" HorizontalAlignment="Left" 
+                    Margin="10,10,0,0"
+                    VerticalAlignment="Top" Width="75"
                     Command="{Binding SubmitCommand}"
-                    />
+            />
 
         </Grid>
-        <StackPanel Grid.Row="1">
-            <Button Command="{Binding CheckProductAvailabilitiesCommand }">Check store availability</Button>
-        </StackPanel>
     </Grid>
 </Window>
