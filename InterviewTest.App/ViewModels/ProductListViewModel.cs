@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using InterviewTest.App.Helpers;
+using InterviewTest.App.Messages;
 using InterviewTest.App.Models;
 using InterviewTest.App.Services;
 
@@ -55,22 +57,11 @@ public partial class ProductListViewModel : ObservableObject
 
         StringBuilder sb = new StringBuilder();
         bool anyError = false;
-        foreach (ProductAvailabilityChecker checker in checkers)
-        {
-            if (!checker.Result)
-            {
-                anyError = true;
-                sb.AppendLine("The product " + checker.Product.Name + " is not available");
-            }
-        }
-        if (!anyError)
-        {
-            //MessageBox.Show(this, "Everything is available.");
-        }
-        else
-        {
-            //MessageBox.Show(this, sb.ToString());
-        }
+
+        var availabilities = checkers.Select(c => new ProductAvailability(c.Product, c.Result)).ToArray();
+
+
+        WeakReferenceMessenger.Default.Send(new ProductAvailabilitiesMessage(availabilities));
     }
 
 
