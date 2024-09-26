@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using InterviewTest.App.Models;
+using InterviewTest.App.Services;
 
 namespace InterviewTest.App.RemoteWorkerSimulator_DO_NOT_TOUCH
 {
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//This class simulate another worker that use the same repository than you.
-	//Assume you don't have access to this worker, you cannot prevent its execution or change what it is doing. 
-	//This class should remains unchanged
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	#region DO NOT TOUCH
-	public class RemoteProductWorkerSimulator
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //This class simulate another worker that use the same repository than you.
+    //Assume you don't have access to this worker, you cannot prevent its execution or change what it is doing. 
+    //This class should remains unchanged
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    #region DO NOT TOUCH
+    public class RemoteProductWorkerSimulator
 	{
 		private const int DELAY_BETWEEN_TASKS = 5000;
 		private IProductStore _productStore;

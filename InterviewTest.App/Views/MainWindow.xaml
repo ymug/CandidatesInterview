@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InterviewTest.App"
+        xmlns:local="clr-namespace:InterviewTest.App" 
+        xmlns:converters="clr-namespace:InterviewTest.App.Converters"
         mc:Ignorable="d"
-        Title="Food Inc - List sharing" Height="350" Width="525" Icon="1499284707_fruit_grapes.png" >
+        Title="Food Inc - List sharing" Height="350" Width="525" Icon="/1499284707_fruit_grapes.png" >
     <Window.Resources>
-        <local:HealthIndexColorConverter x:Key="HealthIndexColorConverter" />
+        <converters:HealthIndexColorConverter x:Key="HealthIndexColorConverter" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
