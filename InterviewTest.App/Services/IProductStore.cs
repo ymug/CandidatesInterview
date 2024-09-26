@@ -10,8 +10,8 @@ namespace InterviewTest.App.Services
     public interface IProductStore
     {
         IEnumerable<IProduct> GetProducts();
-        void ap(IProduct product);
-        void rp(Guid productId);
+        void AddProduct(IProduct product);
+        void RemoveProduct(Guid productId);
 
         //Let's assume we cannot update a product
         event Action<IProduct> ProductAdded;

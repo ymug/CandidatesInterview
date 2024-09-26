@@ -63,7 +63,7 @@ namespace InterviewTest.App
 
 					p = new Fruit(name, qty, up);
 				}
-				_productStore.ap(p);
+				_productStore.AddProduct(p);
 			}
 		}
 
