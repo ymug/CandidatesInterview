@@ -8,10 +8,11 @@ using InterviewTest.App.Models;
 using InterviewTest.App.Services;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace InterviewTest.App.ViewModels
 {
-    public partial class ProductForm : ObservableValidator
+    public partial class ProductFormViewModel : ObservableValidator
     {
         private static readonly Regex NumericalRegex = new Regex(@"^\d+$");
 
@@ -33,7 +34,7 @@ namespace InterviewTest.App.ViewModels
         [Required]
         private int? _quantity;
 
-        public ProductForm(IProductStore productStore)
+        public ProductFormViewModel(IProductStore productStore)
         {
             _productStore = productStore;
         }
@@ -58,7 +59,11 @@ namespace InterviewTest.App.ViewModels
                 {
                     p = new Fruit(Name, Quantity!.Value, UnitPrice!.Value);
                 }
-                _productStore.AddProduct(p);
+
+                Task.Run(() =>
+                {
+                    _productStore.AddProduct(p);
+                });
             }
         }
 

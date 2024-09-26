@@ -12,7 +12,7 @@ using InterviewTest.App.Services;
 using InterviewTest.App.ViewModels;
 using InterviewTest.App.Views;
 using Microsoft.Extensions.DependencyInjection;
-using ProductForm = InterviewTest.App.ViewModels.ProductForm;
+using ProductFormViewModel = InterviewTest.App.ViewModels.ProductFormViewModel;
 
 namespace InterviewTest.App
 {
@@ -62,7 +62,7 @@ namespace InterviewTest.App
 
             services.AddSingleton<MainWindow>();
 
-            services.AddSingleton<ProductForm>();
+            services.AddSingleton<ProductFormViewModel>();
             services.AddSingleton<ProductListViewModel>();
 
             return services.BuildServiceProvider();

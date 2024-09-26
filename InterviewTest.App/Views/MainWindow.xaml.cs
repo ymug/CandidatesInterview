@@ -20,7 +20,7 @@ namespace InterviewTest.App.Views
     /// </summary>
     public partial class MainWindow : Window, IDisposable
 	{
-        public MainWindow(IProductStore productStore, ProductForm productForm, ProductListViewModel productListViewModel)
+        public MainWindow(IProductStore productStore, ProductFormViewModel productForm, ProductListViewModel productListViewModel)
         {
             ProductForm = productForm;
             ProductListViewModel = productListViewModel;
@@ -56,7 +56,7 @@ namespace InterviewTest.App.Views
             }
         }
 
-        public ProductForm ProductForm { get; }
+        public ProductFormViewModel ProductForm { get; }
         public ProductListViewModel ProductListViewModel { get; }
 
 
