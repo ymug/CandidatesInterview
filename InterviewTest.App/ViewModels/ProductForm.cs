@@ -6,11 +6,15 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using InterviewTest.App.Models;
 using InterviewTest.App.Services;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace InterviewTest.App.ViewModels
 {
     public partial class ProductForm : ObservableValidator
     {
+        private static readonly Regex NumericalRegex = new Regex(@"^\d+$");
+
         private readonly IProductStore _productStore;
 
         [ObservableProperty]
@@ -23,11 +27,11 @@ namespace InterviewTest.App.ViewModels
 
         [ObservableProperty]
         [Required]
-        private int _unitPrice;
+        private int? _unitPrice;
 
         [ObservableProperty]
         [Required]
-        private int _quantity;
+        private int? _quantity;
 
         public ProductForm(IProductStore productStore)
         {
@@ -48,14 +52,26 @@ namespace InterviewTest.App.ViewModels
                 IProduct p;
                 if (ProductType == Models.ProductType.Vegetable)
                 {
-                    p = new Vegetable(Name, Quantity, UnitPrice);
+                    p = new Vegetable(Name, Quantity!.Value, UnitPrice!.Value);
                 }
                 else
                 {
-                    p = new Fruit(Name, Quantity, UnitPrice);
+                    p = new Fruit(Name, Quantity!.Value, UnitPrice!.Value);
                 }
                 _productStore.AddProduct(p);
             }
+        }
+
+
+        [RelayCommand]
+        private void IsAllowedInput(object args)
+        {
+            if (args is not TextCompositionEventArgs textCompositionEventArgs)
+            {
+                return;
+            }
+
+            textCompositionEventArgs.Handled = !NumericalRegex.IsMatch(textCompositionEventArgs.Text);
         }
     }
 }

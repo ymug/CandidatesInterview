@@ -60,19 +60,6 @@ namespace InterviewTest.App.Views
         public ProductListViewModel ProductListViewModel { get; }
 
 
-        private void _unitprice_PreviewTextInput(object sender, TextCompositionEventArgs e)
-		{
-			Regex regex = new Regex(@"^\d+$");
-			e.Handled = !regex.IsMatch(e.Text);
-		}
-
-
-		private void _quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
-		{
-			Regex regex = new Regex(@"^\d+$");
-			e.Handled =!regex.IsMatch(e.Text);
-		}
-
         public void Dispose()
         {
             WeakReferenceMessenger.Default.Unregister<ProductAvailabilitiesMessage>(this);

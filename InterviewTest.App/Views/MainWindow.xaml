@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:InterviewTest.App" 
         xmlns:converters="clr-namespace:InterviewTest.App.Converters"
         xmlns:views="clr-namespace:InterviewTest.App.Views"
+        xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Food Inc - List sharing" Height="350" Width="525" Icon="/1499284707_fruit_grapes.png" 
         DataContext="{Binding ProductListViewModel, Mode=OneWay, RelativeSource={RelativeSource Self}}"
@@ -85,14 +86,24 @@
                    VerticalAlignment="Top" />
             <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,13,0,0"
                      Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                     PreviewTextInput="_quantity_PreviewTextInput" 
-                     Text="{Binding Quantity, Mode=TwoWay}" />
+                     Text="{Binding Quantity, Mode=TwoWay}">
+                <behaviours:Interaction.Triggers>
+                    <behaviours:EventTrigger EventName="PreviewTextInput">
+                        <behaviours:InvokeCommandAction Command="{Binding IsAllowedInputCommand}" PassEventArgsToCommand="True"/>
+                    </behaviours:EventTrigger>
+                </behaviours:Interaction.Triggers>
+            </TextBox>
             <Label Content="Unit Price" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4"
                    VerticalAlignment="Top" />
             <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,13,0,0"
                      Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                     PreviewTextInput="_unitprice_PreviewTextInput"
-                     Text="{Binding UnitPrice, Mode=TwoWay}" />
+                     Text="{Binding UnitPrice, Mode=TwoWay}" >
+                <behaviours:Interaction.Triggers>
+                    <behaviours:EventTrigger EventName="PreviewTextInput">
+                        <behaviours:InvokeCommandAction Command="{Binding IsAllowedInputCommand}" PassEventArgsToCommand="True"/>
+                    </behaviours:EventTrigger>
+                </behaviours:Interaction.Triggers>
+            </TextBox>
             <Button Content="Add" Grid.Column="1" HorizontalAlignment="Left" Margin="34,106,0,0"
                     Grid.Row="4" VerticalAlignment="Top" Width="75"
                     Command="{Binding SubmitCommand}"
