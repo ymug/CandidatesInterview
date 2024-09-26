@@ -7,30 +7,59 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using InterviewTest.App.RemoteWorkerSimulator_DO_NOT_TOUCH;
+using InterviewTest.App.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InterviewTest.App
 {
-	/// <summary>
-	/// Interaction logic for App.xaml
-	/// </summary>
-	public partial class App : Application
-	{
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
+    {
+        private readonly IServiceProvider _serviceProvider;
 
-		#region DO NOT REMOVE
-		private CancellationTokenSource _cancellationTokenSource;
 
-		protected override void OnStartup(StartupEventArgs e)
-		{
-			base.OnStartup(e);
-			_cancellationTokenSource = new CancellationTokenSource();
-			new RemoteProductWorkerSimulator().Run(_cancellationTokenSource.Token);
-		}
+        public App()
+        {
+            _serviceProvider = ConfigureServices();
+        }
 
-		protected override void OnExit(ExitEventArgs e)
-		{
-			base.OnExit(e);
-			_cancellationTokenSource.Cancel();
-		}
-		#endregion
-	}
+
+        #region DO NOT REMOVE
+
+        private CancellationTokenSource _cancellationTokenSource;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            _cancellationTokenSource = new CancellationTokenSource();
+            new RemoteProductWorkerSimulator(_serviceProvider.GetRequiredService<IProductStore>()).Run(_cancellationTokenSource.Token);
+
+            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            _cancellationTokenSource.Cancel();
+        }
+
+        #endregion
+
+
+        private static IServiceProvider ConfigureServices()
+        {
+            var services = new ServiceCollection();
+
+            services.AddSingleton<IProductStore, ProductStore>();
+
+
+            services.AddSingleton<MainWindow>();
+
+            return services.BuildServiceProvider();
+        }
+
+    }
 }

@@ -34,9 +34,9 @@ namespace InterviewTest.App.RemoteWorkerSimulator_DO_NOT_TOUCH
 
 
 
-		public RemoteProductWorkerSimulator()
+		public RemoteProductWorkerSimulator(IProductStore productStore)
 		{
-			_productStore = ServiceProvider.Instance.ProductStore;
+			_productStore = productStore;
 		}
 
 

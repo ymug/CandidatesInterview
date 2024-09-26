@@ -28,10 +28,12 @@ namespace InterviewTest.App
 		private readonly List<IProduct>  _products = new List<IProduct>();
 		private readonly IProductStore _productStore;
 
-		public MainWindow()
-		{
-			InitializeComponent();
-			_productStore = ServiceProvider.Instance.ProductStore;
+		public MainWindow(IProductStore productStore)
+        {
+            _productStore = productStore;
+
+
+            InitializeComponent();
 			_products.AddRange(_productStore.GetProducts());
 			RefreshProducts();
 			_productStore.ProductAdded += _productStore_ProductAdded;
