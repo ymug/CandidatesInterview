@@ -72,25 +72,28 @@
             <Label Content="Add something to the list:" HorizontalAlignment="Left" Margin="10,10,0,0"
                    VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" />
             <Label Content="Type" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Top" />
-            <ComboBox x:Name="_type" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"
-                      Width="120">
-                <ListBoxItem Content="Fruit" />
-                <ListBoxItem Content="Vegetable" />
+            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"
+                      Width="120"
+                      ItemsSource="{Binding ProductTypes}"
+                      SelectedItem="{Binding ProductType, Mode=TwoWay}">
             </ComboBox>
             <Label Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" />
-            <TextBox x:Name="_name" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,10,0,0"
-                     Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+            <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,10,0,0"
+                     Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                     Text="{Binding Name, Mode=TwoWay}" />
             <Label Content="Quantity" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3"
                    VerticalAlignment="Top" />
-            <TextBox x:Name="_quantity" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,13,0,0"
+            <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,13,0,0"
                      Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                     PreviewTextInput="_quantity_PreviewTextInput" />
+                     PreviewTextInput="_quantity_PreviewTextInput" 
+                     Text="{Binding Quantity, Mode=TwoWay}" />
             <Label Content="Unit Price" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4"
                    VerticalAlignment="Top" />
-            <TextBox x:Name="_unitprice" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,13,0,0"
+            <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,13,0,0"
                      Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                     PreviewTextInput="_unitprice_PreviewTextInput" />
-            <Button x:Name="button" Content="Add" Grid.Column="1" HorizontalAlignment="Left" Margin="34,106,0,0"
+                     PreviewTextInput="_unitprice_PreviewTextInput"
+                     Text="{Binding UnitPrice, Mode=TwoWay}" />
+            <Button Content="Add" Grid.Column="1" HorizontalAlignment="Left" Margin="34,106,0,0"
                     Grid.Row="4" VerticalAlignment="Top" Width="75"
                     Command="{Binding SubmitCommand}"
                     />

@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using InterviewTest.App.Models;
@@ -30,6 +33,10 @@ namespace InterviewTest.App.ViewModels
         {
             _productStore = productStore;
         }
+
+
+        public IEnumerable<ProductType> ProductTypes => Enum.GetValues(typeof(ProductType)).Cast<ProductType>();
+
 
         [RelayCommand]
         private void Submit()
